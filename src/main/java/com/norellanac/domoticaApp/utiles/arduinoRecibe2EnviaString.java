@@ -24,6 +24,16 @@ public class arduinoRecibe2EnviaString {
     private static String concatTextArduino="";
     private static String codUsuario="";
     private static String warning="no";
+    static String code;
+     static int val;
+
+    public  String getCode() {
+        return code;
+    }
+
+    public  int getVal() {
+        return val;
+    }
 
     /**
      * @param args the command line arguments
@@ -43,6 +53,7 @@ public class arduinoRecibe2EnviaString {
             Logger.getLogger(arduinoRecibe2EnviaString.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
     
     public void kill() throws ArduinoException, SerialPortException {
         try {
@@ -107,6 +118,8 @@ public class arduinoRecibe2EnviaString {
                         warning="JAVA";
                     }
                     concatTextArduino=concatTextArduino+multi.getMessage(0)+multi.getMessage(1);
+                    code=multi.getMessage(0);
+                    val=Integer.parseInt(multi.getMessage(1));
                     System.out.println("-----------------------------------");
                     
                     multi.flushBuffer();
@@ -122,4 +135,3 @@ public class arduinoRecibe2EnviaString {
     
     
 }
-

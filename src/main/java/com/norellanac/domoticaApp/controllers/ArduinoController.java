@@ -1,4 +1,3 @@
-
 package com.norellanac.domoticaApp.controllers;
 
 
@@ -24,6 +23,9 @@ public class ArduinoController {
     private static    Conectar con=new Conectar();
     arduinoRecibe2EnviaString ard=new arduinoRecibe2EnviaString();
     fechasNorellanac fecha= new fechasNorellanac();
+   
+
+    
     @GetMapping("/inicio1")
 	public String init(HttpServletRequest req) {
                 return "index";
@@ -74,7 +76,7 @@ public class ArduinoController {
         }
         
         @GetMapping("/kill")
-	public void beta(HttpServletRequest req, HttpServletResponse resp) throws IOException, ArduinoException, SerialPortException {
+	public String beta(HttpServletRequest req, HttpServletResponse resp) throws IOException, ArduinoException, SerialPortException {
                 //String sql="select * from usuarios order by id desc";
                 //List usuarios=this.jdbcTemplate.queryForList(sql);
 		//req.setAttribute("usuarios",usuarios);
@@ -85,14 +87,26 @@ public class ArduinoController {
             Thread.sleep(5);
         }catch(InterruptedException e){}
                 ard.kill();
-                resp.sendRedirect("/");
+                ard.getCode();
+                req.setAttribute("codigo",ard.getCode());
+                req.setAttribute("valor",ard.getVal());
+                System.out.println(ard.getCode());
+                System.out.println(ard.getVal());
+                return "index";
                 
         }
         
         @GetMapping("/ard")
         public String ard(@RequestParam String codigo, HttpServletRequest req, HttpServletResponse resp) {
             arduinoRecibe2EnviaString ard = new arduinoRecibe2EnviaString();
-
+             Thread thread = new Thread() {
+                public void run() {
+                    //System.out.println("Thread Running");
+                    req.setAttribute("codigo", ard.getCode());
+                    req.setAttribute("valor", ard.getVal());
+                    }
+                };
+            thread.start();
             try {
                 Thread.sleep(5);
             } catch (InterruptedException e) {
@@ -102,6 +116,21 @@ public class ArduinoController {
             
             req.setAttribute("action", "save");
             return "home";
+        }
+        
+        @GetMapping("/graf")
+        public String graf(HttpServletRequest req, HttpServletResponse resp) throws IOException, ArduinoException, SerialPortException {
+            //String sql="select * from usuarios order by id desc";
+            //List usuarios=this.jdbcTemplate.queryForList(sql);
+            //req.setAttribute("usuarios",usuarios);
+           // ard.kill();
+            ard.getCode();
+            req.setAttribute("codigo", ard.getCode());
+            req.setAttribute("valor", ard.getVal());
+            //System.out.println(ard.getCode());
+            //System.out.println(ard.getVal());
+            return "index";
+
         }
 
     
