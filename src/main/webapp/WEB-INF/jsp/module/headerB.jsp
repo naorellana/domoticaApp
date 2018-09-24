@@ -8,11 +8,14 @@
 <script src="/js/jquery-3.3.1.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>
 <script src="/js/bootstrap.js"></script>
-<title>Control De Usurios Gimnacio </title>
+<title>Aplicacion Web Arduino </title>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-  <a class="navbar-brand" href="/">Inicio</a>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="/">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Arduino_Logo.svg/2000px-Arduino_Logo.svg.png" width="30" height="30" class="d-inline-block align-top" alt="">
+            Inicio
+        </a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -23,7 +26,10 @@
         <a class="nav-link" href="home">Usuarios <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item active">
-        <a class="nav-link" href="home">CRUD <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="clima">Clima <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="domotica">Domotica <span class="sr-only">(current)</span></a>
       </li>
     </ul>
   </div>

@@ -20,10 +20,9 @@ public class testArduino1 {
      */
     public static void main(String[] args) throws ArduinoException, SerialPortException {
         // TODO code application logic here
-        arduinoRecibe2EnviaString ard = new arduinoRecibe2EnviaString();
-        //ard.enviarDato("uno");
-        ard.kill();
-        
+        String te="humedad101";
+        int n=Integer.parseInt(te);
+        System.out.println(n);
         
         
     }

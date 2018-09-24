@@ -26,31 +26,19 @@ public class ArduinoController {
    
 
     
-    @GetMapping("/inicio1")
-	public String init(HttpServletRequest req) {
-                return "index";
+    @GetMapping("/clima")
+	public String clima(HttpServletRequest req) {
+                return "clima";
 	}
-    @GetMapping("/control")
-	public void delete(@RequestParam String motor, HttpServletRequest req, HttpServletResponse resp) throws IOException {
-                //String sql="select * from usuarios order by id desc";
-                //List usuarios=this.jdbcTemplate.queryForList(sql);
-		//req.setAttribute("usuarios",usuarios);
-                System.out.println("Comando: "+ motor);
-                serialComArduino comArduino= new serialComArduino();
-        comArduino.enviaDatoArduino(motor);
-                resp.sendRedirect("/inicio1");
-                
+        
+        @GetMapping("/domotica")
+        public String domotica(HttpServletRequest req) {
+            return "domotica";
         }
-        
-        @GetMapping("/test")
-	public String test(HttpServletRequest req) {
-                //req.setAttribute("datos",datos);
-		//req.setAttribute("mode", "BOOK_VIEW");
-		return "crudHuellaBETA";
-	}
-        
-        @GetMapping("/beta")
-	public void beta(@RequestParam String codigo, HttpServletRequest req, HttpServletResponse resp) throws IOException {
+            
+                
+        @GetMapping("/comando")
+	public void comando(@RequestParam String codigo, HttpServletRequest req, HttpServletResponse resp) throws IOException {
                 //String sql="select * from usuarios order by id desc";
                 //List usuarios=this.jdbcTemplate.queryForList(sql);
 		//req.setAttribute("usuarios",usuarios);
@@ -71,12 +59,12 @@ public class ArduinoController {
                      Thread.sleep(5);
                 }catch(InterruptedException e){}
                 ard.enviarDato(codigo);
-                resp.sendRedirect("/");
+                resp.sendRedirect("/domotica");
                 
         }
         
-        @GetMapping("/kill")
-	public String beta(HttpServletRequest req, HttpServletResponse resp) throws IOException, ArduinoException, SerialPortException {
+        @GetMapping("/killConection")
+	public String killConection(HttpServletRequest req, HttpServletResponse resp) throws IOException, ArduinoException, SerialPortException {
                 //String sql="select * from usuarios order by id desc";
                 //List usuarios=this.jdbcTemplate.queryForList(sql);
 		//req.setAttribute("usuarios",usuarios);
@@ -87,17 +75,12 @@ public class ArduinoController {
             Thread.sleep(5);
         }catch(InterruptedException e){}
                 ard.kill();
-                ard.getCode();
-                req.setAttribute("codigo",ard.getCode());
-                req.setAttribute("valor",ard.getVal());
-                System.out.println(ard.getCode());
-                System.out.println(ard.getVal());
                 return "index";
                 
         }
         
-        @GetMapping("/ard")
-        public String ard(@RequestParam String codigo, HttpServletRequest req, HttpServletResponse resp) {
+        @GetMapping("/startMon")
+        public String startMon(@RequestParam String codigo, HttpServletRequest req, HttpServletResponse resp) {
             arduinoRecibe2EnviaString ard = new arduinoRecibe2EnviaString();
              Thread thread = new Thread() {
                 public void run() {
@@ -118,8 +101,8 @@ public class ArduinoController {
             return "home";
         }
         
-        @GetMapping("/graf")
-        public String graf(HttpServletRequest req, HttpServletResponse resp) throws IOException, ArduinoException, SerialPortException {
+        @GetMapping("/updateMoni")
+        public String updateMoni(HttpServletRequest req, HttpServletResponse resp) throws IOException, ArduinoException, SerialPortException {
             //String sql="select * from usuarios order by id desc";
             //List usuarios=this.jdbcTemplate.queryForList(sql);
             //req.setAttribute("usuarios",usuarios);
