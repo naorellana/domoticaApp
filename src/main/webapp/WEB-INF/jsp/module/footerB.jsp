@@ -7,8 +7,8 @@
     <div class="footerNavbar">
       <nav class="navbar fixed-bottom navbar-dark bg-light">
   <!--<a class="navbar-brand" href="#">Fixed bottom</a>-->
-  <a><button  type="button" class="btn btn-outline-danger">Detener Monitoreo</button></a>
-  <a><button  type="button" class="btn btn-outline-info">Actualizar Datos</button></a>
+  <a href="killConection"><button  type="button" class="btn btn-outline-danger">Detener Monitoreo</button></a>
+  <a href="updateMoni"><button  type="button" class="btn btn-outline-info">Actualizar Datos</button></a>
 </nav>
     </div>
   </footer>

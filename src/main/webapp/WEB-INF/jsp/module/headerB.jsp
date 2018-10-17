@@ -31,6 +31,9 @@
       <li class="nav-item active">
         <a class="nav-link" href="domotica">Domotica <span class="sr-only">(current)</span></a>
       </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="startMon?codigo=10">monitorear <span class="sr-only">(current)</span></a>
+      </li>
     </ul>
   </div>
 </nav>

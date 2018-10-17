@@ -79,7 +79,7 @@ public class ArduinoController {
                 
         }
         
-        @GetMapping("/startMon")
+            @GetMapping("/startMon")
         public String startMon(@RequestParam String codigo, HttpServletRequest req, HttpServletResponse resp) {
             arduinoRecibe2EnviaString ard = new arduinoRecibe2EnviaString();
              Thread thread = new Thread() {
@@ -98,7 +98,7 @@ public class ArduinoController {
             //resp.sendRedirect("/");
             
             req.setAttribute("action", "save");
-            return "home";
+            return "clima";
         }
         
         @GetMapping("/updateMoni")
@@ -112,7 +112,7 @@ public class ArduinoController {
             req.setAttribute("valor", ard.getVal());
             //System.out.println(ard.getCode());
             //System.out.println(ard.getVal());
-            return "index";
+            return "clima";
 
         }
 
