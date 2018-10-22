@@ -1,105 +1,52 @@
-//*****************CONFIGURACIONES GPS ARDUINO UNO************************
   /* Conexion pines
      Arduino        GPS         
         D3           RX
         D4           TX
   */
+
   #include <SoftwareSerial.h>  //incluimos SoftwareSerial
   #include <TinyGPS.h>         //incluimos TinyGPS
+
   TinyGPS gps;  //Declaramos el objeto GPS
   SoftwareSerial serialgps(4,3);      //Declaramos el pin 4 (Tx del GPS) y 3 (Rx del GPS)
+   
   //Declaramos la variables para la obtención de datos
   int year;
   byte month, day, hour, minute, second, hundredths;
   unsigned long chars;
   unsigned short sentences, failed_checksum;
-//*************************************************************************************
+float latitude=14.51420, longitude=-90.39943;
+
+  
+  SoftwareSerial SIM900(7, 8);//Configarión de los pines serial por software
+char caracter=0;// Variable para guardar los caracteres mensajes entrantes
+int led=12;
+String estado="";
 
 
-//*********************CONFIGURACION GSM SIM900********************
-#include <SoftwareSerial.h>;
-SoftwareSerial SIM900(7, 8); // Configura el puerto serial para el SIM GSM
-
-char incoming_char=0; //Variable que guarda los caracteres que envia el SIM GSM
-int salir = 0;
-
-//********************************************
   void setup()
   {
    Serial.begin(9600);  //Iniciamos el puerto serie 115200
-   serialgps.begin(9600); //Iniciamos el puerto serie del gps
+  // serialgps.begin(9600); //Iniciamos el puerto serie del gps
    
    //Imprimimos en el monitor serial:
    Serial.println("");
    Serial.println("GPS GY-GPS6MV2 Leantec");
    Serial.println(" ---Buscando senal--- ");  
    Serial.println("");
-   SIM900.begin(19200); //Configura velocidad serial para el SIM
-delay(25000); //Retardo para que encuentra a una RED
-Serial.begin(19200); //Configura velocidad serial para el Arduino
-Serial.println("OK"); //Mensaje OK en el arduino, para saber que todo va bien.
-   gpsLatLon();
+      SIM900.begin(19200);//Arduino se comunica con el SIM900 a una velocidad de 19200bps
+   //Serial.begin(9600);//Velocidad del puerto serial de arduino 
+   delay(20000);//Tiempo prudencial para el escudo inicie sesión de red con tu operador
+ pinMode(led, OUTPUT);
+  SIM900.print("AT+CMGF=1\r");// comando AT para configurar el SIM900 en modo texto
+  delay(200);
+  SIM900.print("AT+CNMI=2,2,0,0,0\r");//Configuramos el módulo para que muestre los SMS por el puerto serie.
+  delay(200);
   }
 
-  void loop()  {
-    //muestraGps();
-    llamar(); //Llama
-mensaje_sms(); //Envia mensaje
-//modo_recibe_mensaje();
-for(;;)
-{
-if(SIM900.available()>0)
-{
-
-incoming_char=SIM900.read(); //Get the character from the cellular serial port.
-Serial.print(incoming_char); //Print the incoming character to the terminal.
-}
-if(Serial.available()>0)
-{
-if(Serial.read() == 'A') break;
-}
-}
-Serial.println("OK-2");
-
-delay(100);
-SIM900.println();
-delay(30000);
-while(1); // Espérate por tiempo indefinido
-
-    gpsLatLon();
-  }
-
-String gpsLatLon(){
-  String urlMap="https://maps.google.com/?q=";
-  String urlSend="https://maps.google.com/?q=", lati, lon;
-  
-  while(serialgps.available()) {
-    int c = serialgps.read(); 
-    if(gps.encode(c)) 
-    {
-     float latitude, longitude;
-     gps.f_get_position(&latitude, &longitude);
-     lati=latitude;
-     /*Serial.print("test: "+urlMap); 
-     Serial.print(latitude,6); 
-     Serial.print(","); 
-     Serial.print(longitude,5);
-     Serial.print("&z=19");
-     Serial.println();
-     Serial.println();*/
-     urlSend="https://maps.google.com/?q="+ lati+","+longitude+"&z=19";
-     Serial.println(urlSend);
-    delay(2000);
-     gps.stats(&chars, &sentences, &failed_checksum);
-    }
-    return urlSend; 
-   }
-   //return urlSend; 
-}
-
-  void muestraGps(){
-    
-   while(serialgps.available()) {
+  void muestraDatosGPS()  {
+   while(serialgps.available()) 
+   {
     int c = serialgps.read(); 
     if(gps.encode(c)) 
     {
@@ -125,56 +72,49 @@ String gpsLatLon(){
      gps.stats(&chars, &sentences, &failed_checksum);
     }
    }
-    }
+  }
 
 
-    void llamar()
-// Función que permite llamar a un celular local
-{
-SIM900.println("ATD +50233120413;"); //Celular
-delay(100);
-SIM900.println();
-delay(30000); // wait for 30 seconds...
-SIM900.println("ATH"); // Cuelta el telefono
-delay(1000);
-}
-void mensaje_sms()
-//Funcion para mandar mensaje de texto
-{
 
-SIM900.print("AT+CMGF=1\r"); // AT command to send SMS message
+void loop() {  
+  SIM900.listen();
+  //hacerLlamada();
+  if(SIM900.available() >0) {//Verificamos si hay datos disponibles desde el SIM900
+    caracter=SIM900.read(); // Leemos los datos y los almcanamos en la variable mensaje
+    Serial.print(caracter); //Imprime los datos entrantes uno a uno en el terminal serial
+    if(caracter=='H'){
+      Serial.println("-->enviando mensaje");
+      digitalWrite(led, HIGH);
+      estado="led encendido";
+      envioMensaje(estado);
+      }
+    if(caracter=='L'){
+      Serial.println("-->enviando mensaje");
+      digitalWrite(led, LOW);
+      estado="led apagado";
+      envioMensaje(estado);
+      }  
+  }
+}
+void envioMensaje(String estado) {
+  SIM900.print("AT+CMGF=1\r"); // AT command to send SMS message
 delay(100);
-SIM900.println("AT+CMGS=\"+50233120413\""); // recipient's mobile number, in international format
-delay(100);
-SIM900.println(gpsLatLon()); // message to send
-delay(100);
-SIM900.println((char)26); // End AT command with a ^Z, ASCII code 26 //Comando de finalizacion
-delay(100);
-SIM900.println();
-delay(5000); // Tiempo para que se envie el mensaje
-Serial.println("SMS sent successfully");
+  SIM900.println("AT+CMGS=\"+50235351566\"");//reemplzar por el número a enviar el mensaje
+  delay(200);
+  SIM900.println("Estado:" + estado);// Reemplzar por el texto a enviar
+  delay(200);
+  //Finalizamos este comando con el caracter de sustitución (→) código Ascii 26 para el envio del SMS
+  SIM900.println((char)26); 
+  delay(200);
+  SIM900.println();
 }
 
-void espera_mensaje()
-{
-salir = 1;
-while(salir==1)
-{
-if(SIM900.available()>0)
-{
-incoming_char=SIM900.read(); //Get the character from the cellular serial port.
-Serial.print(incoming_char); //Print the incoming character to the terminal.
-salir = 0;
-}
-}
-}
-void modo_recibe_mensaje()
-{
-//Configura el modo texto para enviar o recibir mensajes
-SIM900.print("AT+CMGF=1\r"); // set SMS mode to text
-delay(100);
-SIM900.print("AT+CNMI=2,2,0,0,0\r");
-
-// blurt out contents of new SMS upon receipt to the GSM shield's serial out
-delay(1000);
+void hacerLlamada() {
+  SIM900.print("ATD");//Comando AT para iniciar una llamada
+  SIM900.print("+50235351566");//Número de telefono al cual queremos llamar
+  SIM900.println(";");//El ";" indica llamada de voz y no llamada de datos ej:(FAX) 
+  Serial.println("Llamando...");//Leyenda que indica que se inicio el llamado
+  delay(20000);//Duración del llamado antes de cortar
+  SIM900.println("ATH"); // comando AT cortar llamada
+  Serial.println("Llamada finalizada");//Leyenda que indica que finalizó el llamado
 }

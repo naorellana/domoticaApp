@@ -18,7 +18,7 @@ void setup()
 {
 SIM900.begin(19200); //Configura velocidad serial para el SIM
 delay(25000); //Retardo para que encuentra a una RED
-Serial.begin(19200); //Configura velocidad serial para el Arduino
+Serial.begin(9600); //Configura velocidad serial para el Arduino
 Serial.println("OK"); //Mensaje OK en el arduino, para saber que todo va bien.
 }
 
