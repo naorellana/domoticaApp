@@ -3,6 +3,7 @@ package com.norellanac.domoticaApp.controllers;
 
 
 import com.norellanac.domoticaApp.models.Conectar;
+import com.norellanac.domoticaApp.utiles.SendMailGmail;
 import com.norellanac.domoticaApp.utiles.arduinoRecibe2EnviaString;
 import com.norellanac.domoticaApp.utiles.fechasNorellanac;
 import com.norellanac.domoticaApp.utiles.serialComArduino;
@@ -115,6 +116,7 @@ public class ArduinoController {
             return "clima";
 
         }
+        
 
     
 }

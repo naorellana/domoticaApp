@@ -25,7 +25,7 @@ Serial.println("OK"); //Mensaje OK en el arduino, para saber que todo va bien.
 void llamar()
 // Función que permite llamar a un celular local
 {
-SIM900.println("ATD 33XXXXXXXX;"); //Celular
+SIM900.println("ATD +50233120413;"); //Celular
 delay(100);
 SIM900.println();
 delay(30000); // wait for 30 seconds...
@@ -38,7 +38,7 @@ void mensaje_sms()
 
 SIM900.print("AT+CMGF=1\r"); // AT command to send SMS message
 delay(100);
-SIM900.println("AT+CMGS=\"33XXXXXXXX\""); // recipient's mobile number, in international format
+SIM900.println("AT+CMGS=\"+50233120413\""); // recipient's mobile number, in international format
 delay(100);
 SIM900.println("Saludos desde HetPro"); // message to send
 delay(100);
@@ -75,8 +75,8 @@ delay(1000);
 void loop()
 {
 llamar(); //Llama
-mensaje_sms(); //Envia mensaje
-modo_recibe_mensaje();
+//mensaje_sms(); //Envia mensaje
+//modo_recibe_mensaje();
 for(;;)
 {
 if(SIM900.available()>0)

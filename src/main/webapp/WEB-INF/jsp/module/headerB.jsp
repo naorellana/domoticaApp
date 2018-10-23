@@ -26,15 +26,22 @@
         <a class="nav-link" href="home">Usuarios <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item active">
-        <a class="nav-link" href="clima">Clima <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="clima">Monitoreo Clima <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item active">
-        <a class="nav-link" href="domotica">Domotica <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="domotica">Control De Luces <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item active">
         <a class="nav-link" href="startMon?codigo=10">monitorear <span class="sr-only">(current)</span></a>
       </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="alarma">Sistema De Alarma <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="camara">Monitoreo De Camara <span class="sr-only">(current)</span></a>
+      </li>
     </ul>
+      <a class="btn btn-outline-danger text-right" href="/logout">Cerrar Sesion <span class="sr-only">(current)</span></a>
   </div>
 </nav>
     </header>

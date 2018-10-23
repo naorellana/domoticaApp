@@ -115,5 +115,10 @@ public class HomeController {
          u.getNombre(),u.getCorreo(),u.getTelefono(),u.getRol(), u.getEstado(), u.getId());
 		resp.sendRedirect("/home");
 	} 
+        
+        @GetMapping("/camara")
+        public String camara(HttpServletRequest req) {
+            return "camara";
+        }
     
 }

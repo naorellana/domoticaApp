@@ -1,8 +1,8 @@
 #include<Keypad.h>
 const byte filas = 4;
 const byte columnas = 4;
-byte pinesF[filas] = {11,10,9,8};
-byte pinesC[columnas] = {7,6,5,4};
+byte pinesF[filas] = {11,10,9,3};
+byte pinesC[columnas] = {2,6,5,4};
  
 char teclas[filas][columnas] = {
  
