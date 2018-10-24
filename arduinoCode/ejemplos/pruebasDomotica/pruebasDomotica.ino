@@ -76,8 +76,9 @@ Serial.println("Arduino");}
 void Msg(String msg)
 {
   if( !Serial ) {    
-    Serial.println(msg);
-    
-    Serial.println(msg);
+    for(int i=0; i<4;i++){
+     
+    Serial.println(msg); 
+    }
   } 
 } 
