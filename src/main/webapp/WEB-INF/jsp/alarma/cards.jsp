@@ -5,11 +5,11 @@
         <div class="card-body">
             <h2 class="card-title">Sistema De Alarma </h2>
             <p class="card-text">Control De Alarma Remota.</p>
-            <a><button type="button" class="btn btn-outline-success">
+            <a href="/alarmActive" ><button type="button" class="btn btn-outline-success">
                     <i class="material-icons">power_off</i> <span>Activar</span>
                 </button>
             </a>
-            <a><button type="button" class="btn btn-outline-danger">
+            <a href="/alarmInactive"><button type="button" class="btn btn-outline-danger">
                     <i class="material-icons">power_off</i> <span>Apagar</span>
                 </button>
             </a>

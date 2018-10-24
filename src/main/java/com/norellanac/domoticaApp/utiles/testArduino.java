@@ -18,9 +18,9 @@ public class testArduino {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws ArduinoException, SerialPortException {
-        // TODO code application logic here
-        arduinoRecibe2EnviaString ard=new arduinoRecibe2EnviaString();
-        ard.enviarDato("uno");
+        // ejemplo basico
+        arduinoUnoSendData2 ard=new arduinoUnoSendData2();
+        ard.enviarDato("2");
         //ard.kill();
         
     }

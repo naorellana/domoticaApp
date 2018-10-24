@@ -5,6 +5,7 @@ package com.norellanac.domoticaApp.controllers;
 import com.norellanac.domoticaApp.models.Conectar;
 import com.norellanac.domoticaApp.utiles.SendMailGmail;
 import com.norellanac.domoticaApp.utiles.arduinoRecibe2EnviaString;
+import com.norellanac.domoticaApp.utiles.arduinoUnoSendData2;
 import com.norellanac.domoticaApp.utiles.fechasNorellanac;
 import com.norellanac.domoticaApp.utiles.serialComArduino;
 import com.panamahitek.ArduinoException;
@@ -22,10 +23,17 @@ public class AlarmaController {
     //@Autowired	
     private  static JdbcTemplate jdbcTemplate;
     private static    Conectar con=new Conectar();
-    arduinoRecibe2EnviaString ard=new arduinoRecibe2EnviaString();
+    arduinoUnoSendData2 ardUno=new arduinoUnoSendData2();
     fechasNorellanac fecha= new fechasNorellanac();
    
 
+        
+        @GetMapping("/alarma")
+        public String alarma(HttpServletRequest req) {
+            return "alarma";
+        }
+        
+        
         
         @GetMapping("/alertaMail")
         public String alertaMail(@RequestParam String alerta, HttpServletRequest req, HttpServletResponse resp) throws IOException, ArduinoException, SerialPortException {
@@ -35,10 +43,24 @@ public class AlarmaController {
 
         }
         
-        @GetMapping("/alarma")
-        public String alarma(HttpServletRequest req) {
+        
+        @GetMapping("/alarmActive")
+        public String alarmActive(HttpServletRequest req, HttpServletResponse resp) throws IOException, ArduinoException, SerialPortException {
+            ardUno.enviarDato("1");
+            SendMailGmail sendM = new SendMailGmail();
+            sendM.enviarMail("norellanac@miumg.edu.gt", "Prueba MVC", "Sistema ACTIVADO");
             return "alarma";
-        }
 
+        }
+        
+        @GetMapping("/alarmInactive")
+        public String alarmInactive(HttpServletRequest req, HttpServletResponse resp) throws IOException, ArduinoException, SerialPortException {
+            ardUno.enviarDato("2");
+            SendMailGmail sendM = new SendMailGmail();
+            sendM.enviarMail("norellanac@miumg.edu.gt", "Prueba MVC", "Sistema DESACTIVADO");
+            return "alarma";
+
+        }
+        
     
 }

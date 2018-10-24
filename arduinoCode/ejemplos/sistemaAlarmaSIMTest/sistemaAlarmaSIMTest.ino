@@ -50,7 +50,7 @@ void setup() {
   Serial.begin(9600);
   SIM900.begin(19200);//Arduino se comunica con el SIM900 a una velocidad de 19200bps
   imprimirPantalla("CONECTANDO SIM","BUSCNDO RED"); 
-  delay(20000);//Tiempo prudencial para el escudo inicie sesión de red con tu operador
+  //delay(20000);//Tiempo prudencial para el escudo inicie sesión de red con tu operador
   SIM900.print("AT+CMGF=1\r");// comando AT para configurar el SIM900 en modo texto
   delay(200);
   SIM900.print("AT+CNMI=2,2,0,0,0\r");//Configuramos el módulo para que muestre los SMS por el puerto serie.
@@ -59,7 +59,8 @@ void setup() {
   pinMode(led, OUTPUT);
   pinMode(sensorpir, INPUT);
   pinMode(botonMagnetico,INPUT);
-  Serial.println("Todo Listo");
+  Serial.println("sistema De alarma");
+  Serial.println("Sistema De alarma");
 }
 void loop() {
 
@@ -81,23 +82,25 @@ void loop() {
   }
 
   //bloquea cuando se ha llegado al limite de intento
+  String letra="";
   if (contador<intentos){
 if (Serial.available() > 0) {
       // read the incoming byte:
-      tecla = Serial.read();
-      if (tecla=='1'){
+      letra = Serial.readString();
+      if (letra.toInt()==1){
+        Serial.println("SISTEMA ACTIVADO, PRES 2, DESACTIVAR");
         Serial.println("SISTEMA ACTIVADO, PRES 2, DESACTIVAR");
         imprimirPantalla("SISTEMA ACTIVADO","PRES 2, DESACTIVAR");
         //monitorear
         estado=true;
       }
-      if (tecla=='2'){
+      if (letra.toInt()==2){
+        Serial.println("SISTEMA DESACTIVADO, PRES 1, activar");
         Serial.println("SISTEMA DESACTIVADO, PRES 1, activar");
          imprimirPantalla("SISTEMA DESACTIVADO","PRES 1, activar");
-         hacerLlamada();
+         //hacerLlamada();
         //monitorear
         estado=false;
-        hacerLlamada();
       }
     }
     
