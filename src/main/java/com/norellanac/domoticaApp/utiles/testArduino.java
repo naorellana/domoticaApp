@@ -24,8 +24,10 @@ public class testArduino {
         //ard.kill();
         
         
-                ArduinoLeoSendData4 ard=new ArduinoLeoSendData4();
+                ArduinoLeoR4 ard=new ArduinoLeoR4();
                 ard.enviarDato("1");
+                //ard.kill();
+                
         
     }
     

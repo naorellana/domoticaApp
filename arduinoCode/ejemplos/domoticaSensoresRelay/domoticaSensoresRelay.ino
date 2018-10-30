@@ -41,7 +41,8 @@ void setup() {
   
 void loop() {
   //mensaje que muestra valore een patlla, solo necesario para arduino LEONARDO
-  Msg("0");
+  //Msg("0.1");
+  MsgSensoresInicial();
   
         // send data only when you receive data SERIAL app WEB:
         if (Serial.available() > 0) {
@@ -50,10 +51,15 @@ void loop() {
                 if (texto.toInt()==1){
                   dispositivo="LED 1 Encendido";
                   Serial.println(dispositivo);
+                  delay(200);// milesimas segundo 
                   dataSensor1();
+                  delay(200);// milesimas segundo 
                   Serial.println(sensor2,3);
+                  delay(200);// milesimas segundo 
                   Serial.println(sensor3,3);
+                  delay(200);// milesimas segundo 
                   switchOneOn();
+                  delay(200);// milesimas segundo 
                 }
                 if (texto.toInt()==2){
                   dispositivo="LED1 APAGADO";
@@ -98,6 +104,17 @@ void Msg(String msg)
      
     Serial.println(msg); 
     }
+  } 
+} 
+
+void MsgSensoresInicial()
+{
+  if( !Serial ) {    
+    dispositivo="Arrancando";
+                  Serial.println(0.1);
+                  dataSensor1();
+                  Serial.println(sensor2,3);
+                  Serial.println(sensor3,3);
   } 
 } 
 

@@ -19,37 +19,27 @@ import org.springframework.jdbc.core.JdbcTemplate;
  *
  * @author norellanac
  */
-
-public class ArduinoLeoSendData4 {
+public class ArduinoLeoR4 {
     private static String textoEnviado;
-     static String info="";
-     static float s1,s2,s3;
-     static int cont=0;
-    public String getInfo() {
-        return info;
+    private static String concatTextArduino="";
+    private static String codUsuario="";
+    private static String warning="no";
+    static String code;
+     static int val;
+
+    public  String getCode() {
+        return code;
     }
 
-    public float getS1() {
-        return s1;
+    public  int getVal() {
+        return val;
     }
-
-    public float getS2() {
-        return s2;
-    }
-
-    public float getS3() {
-        return s3;
-    }
-
-     
-   
-    
 
     /**
      * @param args the command line arguments
      */
     //contructor
-    public ArduinoLeoSendData4(){
+    public ArduinoLeoR4(){
     }
     
     //funcion para enviar los datos
@@ -58,10 +48,9 @@ public class ArduinoLeoSendData4 {
         try {
             //ino.killArduinoConnection();
             ino.arduinoRXTX(PuertoSerie, 9600, listener);
-            multi.flushBuffer();
             ino.sendData(textoEnviado);//pero no se usa, solo esta aqui para que no de error de sintaxis
         } catch (ArduinoException | SerialPortException ex) {
-            Logger.getLogger(ArduinoLeoSendData4.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ArduinoLeoR4.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
@@ -71,9 +60,9 @@ public class ArduinoLeoSendData4 {
             ino.killArduinoConnection();
             ino.arduinoRXTX(PuertoSerie, 9600, listener);
             ino.killArduinoConnection();
-            ino.sendData(textoEnviado);//pero no se usa, solo esta aqui para que no de error de sintaxis
+            //ino.sendData(textoEnviado);//pero no se usa, solo esta aqui para que no de error de sintaxis
         } catch (ArduinoException ex) {
-            Logger.getLogger(ArduinoLeoSendData4.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ArduinoLeoR4.class.getName()).log(Level.SEVERE, null, ex);
         }   
     }
     
@@ -98,36 +87,25 @@ public class ArduinoLeoSendData4 {
                 
                 if (multi.dataReceptionCompleted()) {
                     
-                    
+                    ino.sendData(textoEnviado);
                     //si el codigo recibido es igual a 10 (o se puede comparar ya con datos del sistema)
-                    if(multi.getMessage(0)!=""){
-                        //ino.killArduinoConnection();
+                    if(multi.getMessage(0).toString().equals("LED 1 Encendido")){
+                        ino.killArduinoConnection();
                     }
                     if(multi.getMessage(0).toString().equals("SISTEMA DESACTIVADO, PRES 1, activar")){
                         ino.killArduinoConnection();
                     }
                     
-                    System.out.println("dato1  -------> " + multi.getMessage(0));
-                    info=multi.getMessage(0);
-                    System.out.println("dato2    -------> " + multi.getMessage(1));
-                    s1=Float.parseFloat(multi.getMessage(1));
-                    System.out.println("dato3  -------> " + multi.getMessage(2));
-                    s2=Float.parseFloat(multi.getMessage(2));
-                    System.out.println("dato4    -------> " + multi.getMessage(3));
-                    s3=Float.parseFloat(multi.getMessage(3));
+                    System.out.println("var1  -------> " + multi.getMessage(0));
+                    System.out.println("var2    -------> " + multi.getMessage(1));
+//                    System.out.println("var3  -------> " + multi.getMessage(2));
+  //                  System.out.println("var4    -------> " + multi.getMessage(3));
                     System.out.println("-----------------------------------");
                     
                     multi.flushBuffer();
-                    cont=cont+1;
-                    if (cont>1){
-                        multi.flushBuffer();
-                        ino.killArduinoConnection();
-                        System.out.println("salio en if");
-                        
-                    }
                 }
             } catch (SerialPortException | ArduinoException ex) {
-                Logger.getLogger(ArduinoLeoSendData4.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ArduinoLeoR4.class.getName()).log(Level.SEVERE, null, ex);
             }
 
         }

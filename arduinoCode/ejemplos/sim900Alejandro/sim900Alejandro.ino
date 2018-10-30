@@ -9,7 +9,6 @@ Hoja de datos:
 Instrucciones para Arduino: Configura la terminal serial a 19200 baudios para que puedas ver los mensajes.
 */
 
-#include <SoftwareSerial.h>;
 SoftwareSerial SIM900(0, 1); // Configura el puerto serial para el SIM GSM
 
 char incoming_char=0; //Variable que guarda los caracteres que envia el SIM GSM

@@ -11,6 +11,7 @@ import com.norellanac.domoticaApp.utiles.fechasNorellanac;
 import com.norellanac.domoticaApp.utiles.serialComArduino;
 import com.panamahitek.ArduinoException;
 import java.io.IOException;
+import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import jssc.SerialPortException;
@@ -28,6 +29,10 @@ public class LucesSensoresController {
     fechasNorellanac fecha= new fechasNorellanac();
     private String correo="norellanac@miumg.edu.gt";
     private String asuntoMail="Alerta DOMOTICA";
+    {
+        Conectar con=new Conectar();
+        this.jdbcTemplate=new JdbcTemplate(con.conectar());
+    }
 
         
         
@@ -36,13 +41,30 @@ public class LucesSensoresController {
         
         @GetMapping("/monitorear")
         public String monitorear(HttpServletRequest req, HttpServletResponse resp) throws IOException, ArduinoException, SerialPortException {
-            ardLeo.enviarDato("1");
+            ardLeo.kill();
+            ardLeo.enviarDato("2");
             SendMailGmail sendM = new SendMailGmail();
             sendM.enviarMail(correo, asuntoMail, "Sistema En Monitoreo");
             req.setAttribute("info", ardLeo.getInfo());
             req.setAttribute("s1", ardLeo.getS1());
             req.setAttribute("s2", ardLeo.getS2());
             req.setAttribute("s3", ardLeo.getS3());
+            
+            jdbcTemplate.update(
+                    "insert into bitacoraSensores (registro,sensor1,sensor2,sesnor3,  comentario ) values (?,?,?,?,?)",
+                    0, ardLeo.getS1(), ardLeo.getS2(), ardLeo.getS3(),  ardLeo.getInfo()
+            );
+            
+            //String sql = "SELECT * FROM bitacoraSensores ORDER BY registro DESC LIMIT 7 ";
+            String sql = "select * from usuarios order by id desc";
+            List datos = this.jdbcTemplate.queryForList(sql);
+            req.setAttribute("datos", datos);
+            
+             sql = "SELECT * FROM bitacoraSensores ORDER BY registro DESC LIMIT 7 ";
+            //String sql = "select * from usuarios order by id desc";
+            List dato = this.jdbcTemplate.queryForList(sql);
+            req.setAttribute("dato", dato);
+            
             return "clima";
 
         }
