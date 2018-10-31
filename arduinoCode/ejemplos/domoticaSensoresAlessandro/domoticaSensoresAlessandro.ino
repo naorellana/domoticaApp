@@ -1,4 +1,6 @@
 #include <SoftwareSerial.h>
+
+// Incluimos librería
 #include <DHT.h>
  
 // Definimos el pin digital donde se conecta el sensor
@@ -16,8 +18,8 @@ char velocidad = '4';
 char pin[5] = "0000"; 
 
 // 8,9,10 para led
-int LED_one = 9;
-int LED_two = 10;
+int LED_one = 10;
+int LED_two = 9;
 int LED_tree = 11;
 
 //variables para app web
@@ -29,6 +31,8 @@ float sensor3=3.3;
 
 void setup() {
   Serial.begin (9600);      // inicializa el puerto serial a 9600 baudios
+  
+  dht.begin();// Comenzamos el sensor DHT
   /*Bluetooth configuracion*/
   pinMode(LEDBT, OUTPUT);//APAGA LOS PINES
   pinMode(BTPWR, OUTPUT);//APAGA LOS PINES
@@ -43,14 +47,12 @@ void setup() {
   pinMode( LED_two, OUTPUT );
   pinMode( LED_tree, OUTPUT );
 
-  MsgSensoresInicialUNO();
   }
      
   
 void loop() {
   //mensaje que muestra valore een patlla, solo necesario para arduino LEONARDO
-  //Msg("0.1");
-  //MsgSensoresInicial();
+  Msg("0");
   
         // send data only when you receive data SERIAL app WEB:
         if (Serial.available() > 0) {
@@ -59,20 +61,15 @@ void loop() {
                 if (texto.toInt()==1){
                   dispositivo="Encendido";
                   Serial.println(dispositivo);
-                  delay(200);// milesimas segundo 
                   dataSensor1();
-                  delay(200);// milesimas segundo 
                   Serial.println(sensor2,3);
-                  delay(200);// milesimas segundo 
                   Serial.println(sensor3,3);
-                  delay(200);// milesimas segundo 
                   switchOneOn();
-                  delay(200);// milesimas segundo 
                 }
                 if (texto.toInt()==2){
                   dispositivo="APAGADO";
                   Serial.println(dispositivo);
-                  dataSensor1();
+                  dataSensor3();
                   Serial.println(sensor2,3);
                   Serial.println(sensor3,3);
                   switchOneOff();
@@ -80,7 +77,7 @@ void loop() {
                 if (texto.toInt()==3){
                   dispositivo="Encendido";
                   Serial.println(dispositivo);
-                  dataSensor1();
+                  dataSensor3();
                   Serial.println(sensor2,3);
                   Serial.println(sensor3,3);
                   switchTwoOn();
@@ -88,7 +85,7 @@ void loop() {
                 if (texto.toInt()==4){
                   dispositivo="APAGADO";
                   Serial.println(dispositivo);
-                  dataSensor1();
+                  dataSensor3();
                   Serial.println(sensor2,3);
                   Serial.println(sensor3,3);
                   switchTwoOff();
@@ -96,7 +93,7 @@ void loop() {
                 if (texto.toInt()==5){
                   dispositivo="Monitoreo";
                   Serial.println(dispositivo);
-                  dataSensor1();
+                  dataSensor3();
                   Serial.println(sensor2,3);
                   Serial.println(sensor3,3);
                   switchTwoOff();
@@ -123,25 +120,6 @@ void Msg(String msg)
   } 
 } 
 
-void MsgSensoresInicial()
-{
-  if( !Serial ) {    
-    dispositivo="Arrancando";
-                  Serial.println(0.1);
-                  dataSensor1();
-                  Serial.println(sensor2,3);
-                  Serial.println(sensor3,3);
-  } 
-} 
-
-void MsgSensoresInicialUNO()
-{
-dispositivo="Arrancando";
-                  Serial.println(dispositivo);
-                  dataSensor1();
-                  Serial.println(sensor2,3);
-                  Serial.println(sensor3,3);
-} 
 
 
 
@@ -215,9 +193,27 @@ void switchTwoOff(){
 
 //**********fucion que devuelve dato de un sensor (en este caso genera un dato random)***
 void dataSensor1(){
-  sensor1=random(30);
-  Serial.println(sensor1,3);
+  //sensor1=random(30);
+  //Serial.println(sensor1,3);
+  
+  //delay(5000);// Esperamos 5 segundos entre medidas
+  // Leemos la humedad relativa
+  float h = dht.readHumidity();
+  // Leemos la temperatura en grados centígrados (por defecto)
+  float t = dht.readTemperature();
+  // Comprobamos si ha habido algún error en la lectura
+  if (isnan(h) || isnan(t)) {
+    Serial.println("Error obteniendo los datos del sensor DHT11");
+    return;
+  }
+  Serial.print("Humedad: ");
+  Serial.print(h);
+  Serial.print(" %\t");
+  Serial.print("Temperatura: ");
+  Serial.print(t);
+  Serial.println(" C");
 }
+
 
 void dataSensor2(){
   //sensor1=random(30);
@@ -246,4 +242,3 @@ void dataSensor3(){
   Serial.println(sensor3,3);
   
 }
-

@@ -81,7 +81,7 @@ public class ArduinoLeoSendData4 {
     private  static JdbcTemplate jdbcTemplate;
     private static    Conectar con=new Conectar();
     //se declara el nombre del puerto ||ya que funciona en linux y windows, pero los nombres del puerto cambian
-    private static String PuertoSerie="/dev/ttyACM3"; //liunx
+    private static String PuertoSerie="/dev/ttyACM0"; //liunx
     //private static String PuertoSerie="COM3"; //windows
     //Cantidad de variables--Serial.println();-- que se leeran desde arduino
     private static int arduinoVariables=4;
@@ -98,12 +98,18 @@ public class ArduinoLeoSendData4 {
                 
                 if (multi.dataReceptionCompleted()) {
                     
-                    
+                    ino.sendData(textoEnviado);
                     //si el codigo recibido es igual a 10 (o se puede comparar ya con datos del sistema)
                     if(multi.getMessage(0)!=""){
                         //ino.killArduinoConnection();
                     }
-                    if(multi.getMessage(0).toString().equals("SISTEMA DESACTIVADO, PRES 1, activar")){
+                    if(multi.getMessage(0).toString().equals("Monitoreo")){
+                        ino.killArduinoConnection();
+                    }
+                    if(multi.getMessage(0).toString().equals("Encendido")){
+                        ino.killArduinoConnection();
+                    }
+                    if (multi.getMessage(0).toString().equals("APAGADO")) {
                         ino.killArduinoConnection();
                     }
                     
@@ -119,12 +125,12 @@ public class ArduinoLeoSendData4 {
                     
                     multi.flushBuffer();
                     cont=cont+1;
-                    if (cont>1){
+                    /*if (cont>1){
                         multi.flushBuffer();
                         ino.killArduinoConnection();
                         System.out.println("salio en if");
                         
-                    }
+                    }*/
                 }
             } catch (SerialPortException | ArduinoException ex) {
                 Logger.getLogger(ArduinoLeoSendData4.class.getName()).log(Level.SEVERE, null, ex);

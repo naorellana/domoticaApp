@@ -70,10 +70,10 @@ public class ArduinoLeoR4 {
     private  static JdbcTemplate jdbcTemplate;
     private static    Conectar con=new Conectar();
     //se declara el nombre del puerto ||ya que funciona en linux y windows, pero los nombres del puerto cambian
-    private static String PuertoSerie="/dev/ttyACM3"; //liunx
+    private static String PuertoSerie="/dev/ttyACM1"; //liunx
     //private static String PuertoSerie="COM3"; //windows
     //Cantidad de variables--Serial.println();-- que se leeran desde arduino
-    private static int arduinoVariables=4;
+    private static int arduinoVariables=2;
     //Se crea una instancia de la librería PanamaHitek_Arduino
     private static PanamaHitek_Arduino ino = new PanamaHitek_Arduino();
     //var multi, sirve para leer multiples println desde arduino y el numero indica la cantidad de lecturas
@@ -89,17 +89,15 @@ public class ArduinoLeoR4 {
                     
                     ino.sendData(textoEnviado);
                     //si el codigo recibido es igual a 10 (o se puede comparar ya con datos del sistema)
-                    if(multi.getMessage(0).toString().equals("LED 1 Encendido")){
+                    if(multi.getMessage(1).toString().equals("Monitoreo")){
                         ino.killArduinoConnection();
                     }
                     if(multi.getMessage(0).toString().equals("SISTEMA DESACTIVADO, PRES 1, activar")){
                         ino.killArduinoConnection();
                     }
                     
-                    System.out.println("var1  -------> " + multi.getMessage(0));
-                    System.out.println("var2    -------> " + multi.getMessage(1));
-//                    System.out.println("var3  -------> " + multi.getMessage(2));
-  //                  System.out.println("var4    -------> " + multi.getMessage(3));
+                    System.out.println("Codigo  -------> " + multi.getMessage(0));
+                    System.out.println("Variable    -------> " + multi.getMessage(1));
                     System.out.println("-----------------------------------");
                     
                     multi.flushBuffer();

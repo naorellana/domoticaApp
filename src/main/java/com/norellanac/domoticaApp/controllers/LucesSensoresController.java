@@ -42,7 +42,7 @@ public class LucesSensoresController {
         @GetMapping("/monitorear")
         public String monitorear(HttpServletRequest req, HttpServletResponse resp) throws IOException, ArduinoException, SerialPortException {
             ardLeo.kill();
-            ardLeo.enviarDato("2");
+            ardLeo.enviarDato("5");
             SendMailGmail sendM = new SendMailGmail();
             sendM.enviarMail(correo, asuntoMail, "Sistema En Monitoreo");
             req.setAttribute("info", ardLeo.getInfo());
@@ -69,14 +69,44 @@ public class LucesSensoresController {
 
         }
         
-        @GetMapping("/deviceOneAcctive")
-        public String deviceOneAcctive(HttpServletRequest req, HttpServletResponse resp) throws IOException, ArduinoException, SerialPortException {
-            ardLeo.enviarDato("2");
+        @GetMapping("/switchOneON")
+        public String switchOneON(HttpServletRequest req, HttpServletResponse resp) throws IOException, ArduinoException, SerialPortException {
+            ardLeo.enviarDato("1");
             SendMailGmail sendM = new SendMailGmail();
-            sendM.enviarMail("norellanac@miumg.edu.gt", "Alerta DOMOTICA", "Sistema DESACTIVADO");
-            return "alarma";
+            sendM.enviarMail("norellanac@miumg.edu.gt", "Alerta DOMOTICA", "Switch 1 Encendido");
+            return "domotica";
 
         }
+        
+        @GetMapping("/switchOneOff")
+        public String switchOneOff(HttpServletRequest req, HttpServletResponse resp) throws IOException, ArduinoException, SerialPortException {
+            ardLeo.enviarDato("2");
+            SendMailGmail sendM = new SendMailGmail();
+            sendM.enviarMail("norellanac@miumg.edu.gt", "Alerta DOMOTICA", "Switch 1 Apagado");
+            return "domotica";
+
+        }
+        
+        
+        
+        @GetMapping("/switchTwoON")
+        public String switchTwoON(HttpServletRequest req, HttpServletResponse resp) throws IOException, ArduinoException, SerialPortException {
+            ardLeo.enviarDato("3");
+            SendMailGmail sendM = new SendMailGmail();
+            sendM.enviarMail("norellanac@miumg.edu.gt", "Alerta DOMOTICA", "Switch 1 Encendido");
+            return "domotica";
+
+        }
+        
+        @GetMapping("/switchTwoOff")
+        public String switchTwoOff(HttpServletRequest req, HttpServletResponse resp) throws IOException, ArduinoException, SerialPortException {
+            ardLeo.enviarDato("4");
+            SendMailGmail sendM = new SendMailGmail();
+            sendM.enviarMail("norellanac@miumg.edu.gt", "Alerta DOMOTICA", "Switch 1 Apagado");
+            return "domotica";
+
+        }
+        
         
     
 }

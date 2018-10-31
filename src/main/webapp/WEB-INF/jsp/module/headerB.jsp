@@ -26,7 +26,7 @@
         <a class="nav-link" href="home">Usuarios <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item active">
-        <a class="nav-link" href="clima">Monitoreo Clima <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="monitorear">Monitoreo Clima <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item active">
         <a class="nav-link" href="domotica">Control De Luces <span class="sr-only">(current)</span></a>

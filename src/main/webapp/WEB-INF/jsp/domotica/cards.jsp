@@ -5,11 +5,11 @@
         <div class="card-body">
             <h2 class="card-title">Sistema Iluminación </h2>
             <p class="card-text">Control De iluminación Remota De Hogar.</p>
-            <a><button type="button" class="btn btn-outline-success">
+            <a href="switchOneON"><button type="button" class="btn btn-outline-success">
                     <i class="material-icons">power_off</i> <span>Encender</span>
                 </button>
             </a>
-            <a><button type="button" class="btn btn-outline-danger">
+            <a href="switchOneOff"><button type="button" class="btn btn-outline-danger">
                     <i class="material-icons">power_off</i> <span>Apagar</span>
                 </button>
             </a>
@@ -23,11 +23,11 @@
         <div class="card-body">
             <h2 class="card-title">Sistema De Ventilación</h2>
             <p class="card-text">Aire Acondicionado Remoto.</p>
-            <a><button type="button" class="btn btn-outline-success">
+            <a href="switchTwoON"><button type="button" class="btn btn-outline-success">
                     <i class="material-icons">power_off</i> <span>Encender</span>
                 </button>
             </a>
-            <a><button type="button" class="btn btn-outline-danger">
+            <a href="switchTwoOff" ><button type="button" class="btn btn-outline-danger">
                     <i class="material-icons">power_off</i> <span>Apagar</span>
                 </button>
             </a>
