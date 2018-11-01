@@ -7,8 +7,7 @@
     <div class="footerNavbar">
       <nav class="navbar fixed-bottom navbar-dark bg-light">
   <!--<a class="navbar-brand" href="#">Fixed bottom</a>-->
-  <a href="killConection"><button  type="button" class="btn btn-outline-danger">Detener Monitoreo</button></a>
-  <a href="monitorear"><button  type="button" class="btn btn-outline-info">Actualizar Datos</button></a>
+  <a href="monitorear"><button  type="button" class="btn btn-outline-info">Monitoreo De Sensores </button></a>
 </nav>
     </div>
   </footer>

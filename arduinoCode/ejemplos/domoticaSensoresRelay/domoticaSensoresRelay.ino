@@ -20,6 +20,9 @@ int LED_one = 9;
 int LED_two = 10;
 int LED_tree = 11;
 
+int ldrPin = 0; // LDR en el pin analogico 0
+int ldrValue = 0;
+
 //variables para app web
 String texto;
 String dispositivo;
@@ -48,6 +51,14 @@ void setup() {
      
   
 void loop() {
+  ldrValue = analogRead(ldrPin); 
+//Serial.println(ldrValue);
+if (ldrValue >= 1010){
+digitalWrite(LED_one,HIGH);
+}
+else {
+digitalWrite(LED_one,LOW);
+}
   //mensaje que muestra valore een patlla, solo necesario para arduino LEONARDO
   //Msg("0.1");
   //MsgSensoresInicial();
@@ -97,9 +108,8 @@ void loop() {
                   dispositivo="Monitoreo";
                   Serial.println(dispositivo);
                   dataSensor1();
-                  Serial.println(sensor2,3);
-                  Serial.println(sensor3,3);
-                  switchTwoOff();
+                  dataSensor2();
+                  dataSensor3();
                 }
         }
 
@@ -139,8 +149,8 @@ void MsgSensoresInicialUNO()
 dispositivo="Arrancando";
                   Serial.println(dispositivo);
                   dataSensor1();
-                  Serial.println(sensor2,3);
-                  Serial.println(sensor3,3);
+                  dataSensor2();
+                  dataSensor3();
 } 
 
 
@@ -215,11 +225,21 @@ void switchTwoOff(){
 
 //**********fucion que devuelve dato de un sensor (en este caso genera un dato random)***
 void dataSensor1(){
-  sensor1=random(30);
+  sensor1=random(35);
   Serial.println(sensor1,3);
 }
 
 void dataSensor2(){
+    sensor2=random(15);
+  Serial.println(sensor2,3);
+}
+
+void dataSensor3(){
+  ldrValue = analogRead(ldrPin);
+    sensor3=1020-ldrValue;
+  Serial.println(sensor3,3);
+}
+void dataSensorA(){
   //sensor1=random(30);
   //Serial.println(sensor1,3);
   
@@ -240,10 +260,3 @@ void dataSensor2(){
   Serial.print(t);
   Serial.println(" C");
 }
-
-void dataSensor3(){
-  sensor3=random(30);
-  Serial.println(sensor3,3);
-  
-}
-

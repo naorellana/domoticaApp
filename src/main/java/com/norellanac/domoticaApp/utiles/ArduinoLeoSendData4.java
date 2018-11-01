@@ -81,7 +81,7 @@ public class ArduinoLeoSendData4 {
     private  static JdbcTemplate jdbcTemplate;
     private static    Conectar con=new Conectar();
     //se declara el nombre del puerto ||ya que funciona en linux y windows, pero los nombres del puerto cambian
-    private static String PuertoSerie="/dev/ttyACM0"; //liunx
+    private static String PuertoSerie="/dev/ttyACM1"; //liunx
     //private static String PuertoSerie="COM3"; //windows
     //Cantidad de variables--Serial.println();-- que se leeran desde arduino
     private static int arduinoVariables=4;

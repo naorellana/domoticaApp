@@ -22,17 +22,12 @@
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="home">Usuarios <span class="sr-only">(current)</span></a>
-      </li>
+
       <li class="nav-item active">
         <a class="nav-link" href="monitorear">Monitoreo Clima <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item active">
         <a class="nav-link" href="domotica">Control De Luces <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item active">
-        <a class="nav-link" href="startMon?codigo=10">monitorear <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item active">
         <a class="nav-link" href="alarma">Sistema De Alarma <span class="sr-only">(current)</span></a>
