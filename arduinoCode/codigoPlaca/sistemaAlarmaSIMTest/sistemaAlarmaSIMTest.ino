@@ -16,6 +16,7 @@ String mensaje="";
 
 String a="1 ACTIIVAR";
 String b="2 DESACTIVAR";
+String monitoreo="sin alertas";
 String secret="3190";   //contraseña
 int contador=0;
 int intentos=1;
@@ -67,6 +68,8 @@ void loop() {
   //activa led de alerta o buzzer si estado es true y hay movimiento en sensores
   if(digitalRead(sensorpir) == HIGH && estado==true){
     digitalWrite(led, HIGH);
+    monitoreo="Alerta De Movimiento";  
+    monitoreo="Alerta De Movimiento";
     sonido(1);
   }
   else{
@@ -75,10 +78,13 @@ void loop() {
   //activa led de alerta o buzzer si estado es true y hay cambios en sensor mgnetico(simulado por un switch)
   if(digitalRead(botonMagnetico) == LOW && estado==true){
     digitalWrite(led, HIGH);
+    monitoreo="Alerta En Cerradura";  
+    monitoreo="Alerta En Cerradura";
     sonido(1);
   }
   else{
     digitalWrite(led, LOW);
+    
   }
 
   //bloquea cuando se ha llegado al limite de intento
@@ -102,6 +108,10 @@ if (Serial.available() > 0) {
         //monitorear
         estado=false;
       }
+      if (letra.toInt()==3){
+        Serial.println(monitoreo);
+                Serial.println(monitoreo);
+        }
     }
     
     if(tecla = teclado.getKey()){ //si se ingresan datos por telcado matricial

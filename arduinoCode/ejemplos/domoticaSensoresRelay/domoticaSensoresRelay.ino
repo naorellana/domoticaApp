@@ -224,17 +224,17 @@ void switchTwoOff(){
 
 
 //**********fucion que devuelve dato de un sensor (en este caso genera un dato random)***
-void dataSensor1(){
-  sensor1=random(35);
+void dataSensor1(){ ///TEMPERATURA
+  sensor1=dht.readTemperature();
   Serial.println(sensor1,3);
 }
 
-void dataSensor2(){
-    sensor2=random(15);
+void dataSensor2(){ //HUMEDAD %
+    sensor2=dht.readHumidity();
   Serial.println(sensor2,3);
 }
 
-void dataSensor3(){
+void dataSensor3(){ //INTENSIDAD DE LUZ
   ldrValue = analogRead(ldrPin);
     sensor3=1020-ldrValue;
   Serial.println(sensor3,3);

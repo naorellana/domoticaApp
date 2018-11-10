@@ -25,7 +25,7 @@ servoUno();
 boolean alertaCam(){
   boolean estado;
 long distVar=ultraDistancia();
-  if (distVar >= 500 || distVar <= 0){  //  si la distancia en mayor a 500cm o menor a 0cm
+  if (distVar >= 200 || distVar <= 0){  //  si la distancia en mayor a 500cm o menor a 0cm
     Serial.println("FUERA DE ALCANCE");// no mide nada
     estado=false;
   }

@@ -19,14 +19,15 @@ public class testArduino {
      */
     public static void main(String[] args) throws ArduinoException, SerialPortException {
         // ejemplo basico
-        //arduinoUnoSendData2 ard=new arduinoUnoSendData2();
-        //ard.enviarDato("2");
+        arduinoUnoSendData2 ard=new arduinoUnoSendData2();
+        ard.enviarDato("3");
         //ard.kill();
         
         
+        /*
                 ArduinoLeoSendData4 ard=new ArduinoLeoSendData4();
                 ard.enviarDato("5");
-                //ard.kill();
+               */
                 
         
     }
