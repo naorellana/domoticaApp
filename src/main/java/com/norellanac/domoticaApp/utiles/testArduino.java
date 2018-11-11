@@ -22,8 +22,13 @@ public class testArduino {
         arduinoUnoSendData2 ard=new arduinoUnoSendData2();
         ard.enviarDato("3");
         //ard.kill();
-        
-        
+        /*
+        TestThread hilo = new TestThread();
+        hilo.start();
+        for (int i=1; i<10;i++){
+            System.out.println("Test");
+        }
+        //hilo.stop();
         /*
                 ArduinoLeoSendData4 ard=new ArduinoLeoSendData4();
                 ard.enviarDato("5");

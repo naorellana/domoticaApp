@@ -68,5 +68,25 @@ public class AlarmaController {
 
         }
         
+        @GetMapping("/monitorearAlarma")
+        public String monitorearAlarma(HttpServletRequest req, HttpServletResponse resp) throws IOException, ArduinoException, SerialPortException {
+              //  arduinoUnoSendData2 ardUno=new arduinoUnoSendData2();
+            //ardUno.enviarDato("2");
+            arduinoUnoSendData2 ard=new arduinoUnoSendData2();
+        ard.enviarDato("3");
+            return "alarma";
+
+        }
+        
+        @GetMapping("/killAlarma")
+        public String killAlarma(HttpServletRequest req, HttpServletResponse resp) throws IOException, ArduinoException, SerialPortException {
+              //  arduinoUnoSendData2 ardUno=new arduinoUnoSendData2();
+            //ardUno.enviarDato("2");
+            arduinoUnoSendData2 ard=new arduinoUnoSendData2();
+        ard.kill();
+            return "alarma";
+
+        }
+        
     
 }

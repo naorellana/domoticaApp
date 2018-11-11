@@ -86,7 +86,7 @@ public class arduinoUnoSendData2 {
             try {
                 
                 if (multi.dataReceptionCompleted()) {
-                    
+                    code=multi.getMessage(0);
                     ino.sendData(textoEnviado);
                     //si el codigo recibido es igual a 10 (o se puede comparar ya con datos del sistema)
                     if(multi.getMessage(0).toString().equals("SISTEMA ACTIVADO, PRES 2, DESACTIVAR")){
@@ -95,9 +95,28 @@ public class arduinoUnoSendData2 {
                     if(multi.getMessage(0).toString().equals("SISTEMA DESACTIVADO, PRES 1, activar")){
                         ino.killArduinoConnection();
                     }
+                    //Alerta De Movimiento
+                    if (multi.getMessage(0).toString().equals("Alerta De Movimiento")) {
+                        SendMailGmail sendM = new SendMailGmail();
+                        sendM.enviarMail("norellanac@miumg.edu.gt", "ALERTA", "Sistema DESACTIVADO");
+                        sendM.enviarMail("alexis_oc@yahoo.es", "Alerta", "Sistema DESACTIVADO");
+                        //ino.killArduinoConnection();
+                    }
+                    if (multi.getMessage(0).toString().equals("Sin Alerta")) {
+                        code=multi.getMessage(0);
+                        //ino.killArduinoConnection();
+                    }
+                    if (multi.getMessage(0).toString().equals("Alerta En Cerradura")) {
+                        SendMailGmail sendM = new SendMailGmail();
+                        sendM.enviarMail("norellanac@miumg.edu.gt", "ALERTA", "Sistema DESACTIVADO");
+                        sendM.enviarMail("alexis_oc@yahoo.es", "Alerta", "Sistema DESACTIVADO");
+                        //ino.killArduinoConnection();
+                    }
                     
                     System.out.println("Codigo  -------> " + multi.getMessage(0));
+                    code=multi.getMessage(0);
                     System.out.println("Variable    -------> " + multi.getMessage(1));
+                    code=multi.getMessage(0);
                     System.out.println("-----------------------------------");
                     
                     multi.flushBuffer();

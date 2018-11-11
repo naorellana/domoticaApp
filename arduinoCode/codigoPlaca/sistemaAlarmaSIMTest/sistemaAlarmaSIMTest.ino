@@ -64,11 +64,10 @@ void setup() {
   Serial.println("Sistema De alarma");
 }
 void loop() {
-
+monitoreo="";
   //activa led de alerta o buzzer si estado es true y hay movimiento en sensores
   if(digitalRead(sensorpir) == HIGH && estado==true){
     digitalWrite(led, HIGH);
-    monitoreo="Alerta De Movimiento";  
     monitoreo="Alerta De Movimiento";
     sonido(1);
   }
@@ -78,7 +77,6 @@ void loop() {
   //activa led de alerta o buzzer si estado es true y hay cambios en sensor mgnetico(simulado por un switch)
   if(digitalRead(botonMagnetico) == LOW && estado==true){
     digitalWrite(led, HIGH);
-    monitoreo="Alerta En Cerradura";  
     monitoreo="Alerta En Cerradura";
     sonido(1);
   }
@@ -109,6 +107,9 @@ if (Serial.available() > 0) {
         estado=false;
       }
       if (letra.toInt()==3){
+        if(monitoreo==""){
+          monitoreo="Sin Alerta";
+        }
         Serial.println(monitoreo);
                 Serial.println(monitoreo);
         }
