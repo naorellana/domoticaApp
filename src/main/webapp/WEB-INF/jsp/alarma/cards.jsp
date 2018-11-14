@@ -13,6 +13,15 @@
                     <i class="material-icons">power_off</i> <span>Apagar</span>
                 </button>
             </a>
+            <p></p>
+            <a href="/monitorearAlarma" ><button type="button" class="btn btn-outline-success">
+                    <i class="material-icons">mobile_friendly</i> <span>Activar</span>
+                </button>
+            </a>
+            <a href="/killAlarma"><button type="button" class="btn btn-outline-danger">
+                    <i class="material-icons">mobile_off</i> <span>Apagar</span>
+                </button>
+            </a>
         </div>
         <div class="card-footer">
             <small class="text-muted">Last updated 3 mins ago</small>

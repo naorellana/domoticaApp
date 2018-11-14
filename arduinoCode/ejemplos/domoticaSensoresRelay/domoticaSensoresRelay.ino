@@ -52,6 +52,8 @@ void setup() {
   
 void loop() {
   ldrValue = analogRead(ldrPin); 
+  sensor1=dht.readTemperature();
+    sensor2=dht.readHumidity();
 //Serial.println(ldrValue);
 if (ldrValue >= 1010){
 digitalWrite(LED_one,HIGH);
